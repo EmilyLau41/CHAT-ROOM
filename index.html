@@ -43,10 +43,20 @@
     <div id="auth-container">
         <div class="auth-card">
             <h2>即時聊天室</h2>
-            <p>輸入 Email 接收魔術連結登入</p>
-            <input type="email" id="email-input" placeholder="example@email.com">
-            <button id="login-btn">發送登入連結</button>
-            <div id="auth-msg"></div>
+            <p style="color: #666; font-size: 14px;">選擇您喜歡的方式登入</p>
+            
+            <input type="email" id="email-input" placeholder="電子郵件">
+            <input type="password" id="password-input" placeholder="密碼 (使用連結登入則免填)">
+            
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                <button id="magic-btn" style="background: #34b7f1;">發送魔術連結 (免密碼)</button>
+                <div style="display: flex; gap: 8px;">
+                    <button id="login-btn">密碼登入</button>
+                    <button id="signup-btn" style="background: #555;">註冊帳號</button>
+                </div>
+            </div>
+            
+            <p id="auth-msg" style="font-size: 13px; margin-top: 15px; color: #d66100; min-height: 1.5em;"></p>
         </div>
     </div>
     <div id="main-chat" style="display: none; flex-direction: column; height: 100vh;">
@@ -82,6 +92,9 @@
     const imageInput = document.getElementById('image-input');
     const sendBtn = document.getElementById('send-btn');
     const statusBar = document.getElementById('status-bar');
+    const loginBtn = document.getElementById('login-btn');
+    const emailInput = document.getElementById('email-input');
+    const authMsg = document.getElementById('auth-msg');
 
             // 發送 Magic Link
             loginBtn.onclick = async () => {
@@ -105,9 +118,9 @@
     };
 
     // 登出
-    logoutBtn.onclick = async () => {
-        await _supabase.auth.signOut();
-    };
+    // logoutBtn.onclick = async () => {
+    //     await _supabase.auth.signOut();
+    // };
     // 2. 渲染訊息函式
     function renderMessage(msg) {
         const isMine = msg.sender === userInput.value && userInput.value !== '';
